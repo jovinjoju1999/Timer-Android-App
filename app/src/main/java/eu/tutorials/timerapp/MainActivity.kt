@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,10 +25,12 @@ import androidx.compose.ui.graphics.PointMode
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import eu.tutorials.timerapp.ui.theme.TimerAppTheme
 import kotlin.math.PI
 import kotlin.math.cos
@@ -103,6 +107,32 @@ fun Timer (
                 color = handleColor,
                 strokeWidth = (strokeWidth * 3f).toPx(),
                 cap = StrokeCap.Round
+            )
+        }
+        Text(
+            text = (currentTime/1000L).toString(),
+            fontSize = 44.sp,
+            fontWeight = FontWeight.Bold,
+            color= Color.White
+            )
+        Button(onClick = {
+                         if(currentTime <= 0L) {
+                             currentTime = totalTime
+                             isTimerRunning = true
+                         } else {
+                             isTimerRunning = !isTimerRunning
+                         }
+        },
+            modifier=Modifier.align(Alignment.BottomCenter),
+            colors = ButtonDefaults.buttonColors(containerColor = if(!isTimerRunning || currentTime <= 0L){
+                Color.Green
+            } else{
+                Color.Red
+            })
+        ) {
+            Text(text=if(isTimerRunning && currentTime >= 0L) "Stop"
+            else if(!isTimerRunning && currentTime >=0L) "Start"
+                else "Restart"
             )
         }
     }
