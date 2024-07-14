@@ -54,7 +54,7 @@ fun Timer (
     activeBarColor: Color,
     modifier: Modifier = Modifier,
     initialValue: Float = 0f,
-    strokeWidth: Dp = 5.dp
+    strokeWidth: Dp = 8.dp
 ){
     var size by remember {
         mutableStateOf(IntSize.Zero)
